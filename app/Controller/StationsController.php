@@ -6,8 +6,21 @@
 App::uses('AppController', 'Controller');
 
 class StationsController extends AppController {
+	public function _isValidLoc( $lat, $lon ) {
+		if ( $lat > 90 || $lat < -90 ) {
+			// Sorry you are not on the world.
+			return false;
+		}
+		
+		if( $lon > 180 || $lon < -180 ) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	public function createStation ( $seed, $lat, $lon, $is_artist ) {
-		if ( _isValidLoc( $lat, $lon ) {
+		if ( $this->_isValidLoc( $lat, $lon ) ) {
 			//Create New Station
 		}
 	}
@@ -26,26 +39,25 @@ class StationsController extends AppController {
 	
 	public function playStation ( $station_id ) {
 		// puts rdio sdk player into web page, rdio stuff should be partially handeled in view
-		// this method should only contain stop, start, and skip
+		// this method should only contain stop, start, and skip	
+		//echo "<song><id>1234</id><start>12348923484</start></song>";
+		// In java script call rdio_play( 1234, time() - $starttime );
+		// end time in database
 	}
 	
 	public function vote ( $user, $station_id, $type ) {
 		// Voting will be a non-trivial application
 		// Items that will be need to be dealt with:
 		// * When to apply a change to taste profile (time delay
+		
+		// do two things:
+		// 1) record the users vote
+		// 2) determine whether to change the taste profile
+		// after 15 minutes if there are more than 10 votes then
 		time();
 	}
 	
-	public function _isValidLoc( $lat, $lon ) {
-		if ( $lat > 90 || $lat < -90 ) {
-			// Sorry you are not on the world.
-			return false;
-		}
-		
-		if( $lon > 180 || $lon < -180 ) {
-			return false;
-		}
-	}
+
 	
 	public function _distanceToLocation( $lat1, $lon1, $lat2, $lon2 ) {
 		// add internet code --> GeoDataSource.com (C) All Rights Reserved 2014		   		
@@ -57,22 +69,18 @@ class StationsController extends AppController {
 	  $dist = rad2deg($dist);
 	  $miles = $dist * 60 * 1.1515;
 		//$unit = strtoupper($unit);
-//remove these lines of you don't need kilometers/nautical miles
-		//	  if ($unit == "K") {
-		//		return ($miles * 1.609344);
-		//	  } else if ($unit == "N") {
-		//		  return ($miles * 0.8684);
-		//		} else
-       return $miles;
-		  }
+		//remove these lines of you don't need kilometers/nautical miles
+				//	  if ($unit == "K") {
+				//		return ($miles * 1.609344);
+				//	  } else if ($unit == "N") {
+				//		  return ($miles * 0.8684);
+				//		} else
+			   return $miles;
+		//		  }
+		//	}
+		//test cases->
+			//echo distance(32.9697, -96.80322, 29.46786, -98.53506, "M") . " Miles<br>";
+			//	echo distance(32.9697, -96.80322, 29.46786, -98.53506, "K") . " Kilometers<br>";
+			//echo distance(32.9697, -96.80322, 29.46786, -98.53506, "N") . " Nautical Miles<br>";
 	}
-//test cases->
-	//echo distance(32.9697, -96.80322, 29.46786, -98.53506, "M") . " Miles<br>";
-	//	echo distance(32.9697, -96.80322, 29.46786, -98.53506, "K") . " Kilometers<br>";
-	//echo distance(32.9697, -96.80322, 29.46786, -98.53506, "N") . " Nautical Miles<br>";
-
-	
-	
-	
-	}//here
 }
