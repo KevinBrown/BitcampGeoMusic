@@ -35,6 +35,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<script src="https://www.rdio.com/api/api.js?client_id=YOUR_CLIENT_ID_GOES_HERE"></script>
 </head>
 <body>
 	<div id="container">
